@@ -31,4 +31,7 @@ switch ($rota) {
     case '/livros/criar':
         $controller->criar();
         break;
+    case '/livros/editar':
+        $controller->editar();
+        break;    
 }

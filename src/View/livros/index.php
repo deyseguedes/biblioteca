@@ -27,6 +27,9 @@ if(isset($_SESSION['sucesso'])){
     <a href="<?= defined('BASE_URL') ? BASE_URL : '' ?>/livros/criar">
         Cadastrar livro
     </a>
+    <a href="<?= defined('BASE_URL') ? BASE_URL : '' ?>/livros/editar">
+        Editar livro
+    </a>
 
     <hr>
 

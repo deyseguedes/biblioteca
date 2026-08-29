@@ -31,5 +31,24 @@ class Livro
         $stmt->bindParam(':ano_publicacao', $anoPublicacao);
         $stmt->execute();
     }
+    public function editar(int $id, string $titulo, string $autor, int $anoPublicacao): void
+    {
+        $sql = 'UPDATE livros SET titulo = :titulo, autor = :autor, ano_publicacao = :ano_publicacao WHERE id = :id';
+        $stmt = $this->conexao->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':titulo', $titulo);
+        $stmt->bindParam(':autor', $autor);
+        $stmt->bindParam(':ano_publicacao', $anoPublicacao);
+        $stmt->execute();
+    }
+    public function buscarPorId(int $id): ?array
+    {
+        $sql = 'SELECT * FROM livros WHERE id = :id';
+        $stmt = $this->conexao->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+        $livro = $stmt->fetch(PDO::FETCH_ASSOC);
+        return $livro ?: null;
+    }
 }
 
