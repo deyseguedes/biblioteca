@@ -15,8 +15,7 @@ $livro = $livro ?? [
 </head>
 <body>
     <h1>Editar Livro</h1>
-    <form action="<?= defined('BASE_URL') ? BASE_URL : '' ?>/livros/editar" method="POST">
-        <input type="hidden" name="id" value="<?= htmlspecialchars($livro['id'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
+    <form action="<?= defined('BASE_URL') ? BASE_URL : '' ?>/livros/editar?id=<?= urlencode((string) $livro['id']) ?>" method="POST">
         <label for="nome">Nome do Livro</label>
         <input type="text" id="nome" name="nome" value="<?= htmlspecialchars($livro['titulo'] ?? '', ENT_QUOTES, 'UTF-8') ?>">
         <br><br>

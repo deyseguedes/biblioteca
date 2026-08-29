@@ -31,20 +31,33 @@ class LivroController
     public function editar(): void
     {
     session_start();
+
+    $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+    if ($id === false || $id === null || $id <= 0) {
+        header('Location: ' . (defined('BASE_URL') ? BASE_URL : '') . '/');
+        exit;
+    }
+
+    $livroModel = new Livro();
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $id = $_POST['id'] ?? '';
         $titulo = $_POST['nome'] ?? '';
         $autor = $_POST['autor'] ?? '';
         $anoPublicacao = $_POST['ano'] ?? '';
 
-        $livroModel = new Livro();
-        $livroModel->editar((int)$id, $titulo, $autor, (int)$anoPublicacao);
+        $livroModel->editar($id, $titulo, $autor, (int)$anoPublicacao);
         $_SESSION['sucesso'] = 'Edição efetuada com sucesso';
-        $livro = $livroModel->buscarPorId($id);
-        require_once __DIR__ . '/../View/livros/editar.php';
-        header('Location: ' . (defined('BASE_URL') ? BASE_URL : '') . '/livros/editar');
+        header('Location: ' . (defined('BASE_URL') ? BASE_URL : '') . '/');
         exit;
+        
+        }
 
-    }
+        $livro = $livroModel->buscarPorId($id);
+        if ($livro === null) {
+            header('Location: ' . (defined('BASE_URL') ? BASE_URL : '') . '/');
+            exit;
+        }
+
+        require_once __DIR__ . '/../View/livros/editar.php';
 }
 }
