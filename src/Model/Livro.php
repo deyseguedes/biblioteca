@@ -50,5 +50,12 @@ class Livro
         $livro = $stmt->fetch(PDO::FETCH_ASSOC);
         return $livro ?: null;
     }
+    public function excluir(int $id): void
+    {
+        $sql = 'DELETE FROM livros WHERE id = :id';
+        $stmt = $this->conexao->prepare($sql);
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
+    }
 }
 

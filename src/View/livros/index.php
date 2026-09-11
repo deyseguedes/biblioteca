@@ -27,6 +27,9 @@ if(isset($_SESSION['sucesso'])){
     <a href="<?= defined('BASE_URL') ? BASE_URL : '' ?>/livros/criar">
         Cadastrar livro
     </a>
+    <a href="<?= defined('BASE_URL') ? BASE_URL : '' ?>/user/login">
+        Fazer Login
+    </a>
     <hr>
 
     <?php if (empty($livros)): ?>
@@ -53,6 +56,10 @@ if(isset($_SESSION['sucesso'])){
 
         <a href="<?= defined('BASE_URL') ? BASE_URL : '' ?>/livros/editar?id=<?= urlencode((string) $livro['id']) ?>">
             Editar livro
+        </a>
+
+        <a href="<?= defined('BASE_URL') ? BASE_URL : '' ?>/livros/excluir?id=<?= urlencode((string) $livro['id']) ?>">
+            Excluir livro
         </a>
 
         <hr>
