@@ -23,7 +23,9 @@ if ($baseUrl !== '' && str_starts_with($caminho, $baseUrl)) {
 $rota = '/' . trim($caminho, '/');
 $rota = $rota === '/' ? '/' : rtrim($rota, '/');
 
-$rotaPublica = $rota === '/user/login';
+$rotaPublica = ['/user/login', '/user/cadastrar'];
+
+$rotaPublica = in_array($rota, $rotaPublica, true);
 
 if (!$rotaPublica && !isset($_SESSION['usuario_id'])) {
     define('BASE_URL', $baseUrl);
@@ -51,7 +53,14 @@ switch ($rota) {
         break;
 
     case '/user/login':
+        $userController->login();
+        break;
+    case '/user/cadastrar':
         $userController->cadastrar();
+        break;
+
+    case '/user/logout':
+        $userController->logout();
         break;
 
     case '/livros/excluir':

@@ -1,8 +1,16 @@
 CREATE DATABASE biblioteca
-CHARACTER SET utf8mb4
-COLLATE utf8mb4_unicode_ci;
+CHARACTER SET UTF8MB4
+COLLATE UTF8MB4_UNICODE_CI;
 
 USE biblioteca;
+
+CREATE TABLE user(
+id INT AUTO_INCREMENT PRIMARY KEY,
+email VARCHAR(255) NOT NULL UNIQUE,
+senha VARCHAR(255) NOT NULL,
+criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
+);
 
 CREATE TABLE livros (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -10,7 +18,7 @@ CREATE TABLE livros (
     autor VARCHAR(150) NOT NULL,
     isbn VARCHAR(20) UNIQUE,
     categoria VARCHAR(100),
-    ano_publicacao YEAR,
+    ano_publicacao INT,
     quantidade_total INT UNSIGNED NOT NULL DEFAULT 1,
     quantidade_disponivel INT UNSIGNED NOT NULL DEFAULT 1,
     criado_em TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -46,3 +54,5 @@ CREATE TABLE emprestimos (
         FOREIGN KEY (leitor_id)
         REFERENCES leitores(id)
 );
+
+

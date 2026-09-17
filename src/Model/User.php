@@ -21,28 +21,36 @@ class User{
     }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     public function cadastrar(string $email, string $senhaHash): void
 =======
     public function cadastrar(string $email, string $senhaHash)
 >>>>>>> c6d462397a13f23e9be5e794a094722060f38ec6
+=======
+    public function cadastrar(string $email, string $senhaHash): bool
+>>>>>>> 248c69d (Atualizacao para validar o esquema de cadastro e login)
     {
         $sql = 'INSERT INTO user (email, senha) VALUES (:email, :senha)';
         $stmt = $this->conexao->prepare($sql);
-        $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':senha', $senhaHash);
-        $stmt->execute();
+
+
+        return $stmt->execute([':email' => $email, ':senha' => $senhaHash]);
     }
 
-    public function buscarPorEmail(string $email)
+    public function buscarPorEmail(string $email): ?array
     {
         $sql = 'SELECT * FROM user WHERE email = :email LIMIT 1';
         $stmt = $this->conexao->prepare($sql);
-        $stmt->bindParam(':email', $email);
-        $stmt->execute();
+        $stmt->execute([':email' => $email]);
+        
 
+<<<<<<< HEAD
         $usuario = $stmt->fetch();
 <<<<<<< HEAD
 
+=======
+        $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+>>>>>>> 248c69d (Atualizacao para validar o esquema de cadastro e login)
         return $usuario ?: null;
     }
 }
