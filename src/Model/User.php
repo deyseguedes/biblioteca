@@ -6,8 +6,12 @@ namespace Engineer\Biblioteca\Model;
 use Config\Database;
 use PDO;
 
+<<<<<<< HEAD
 class User 
 {
+=======
+class User{
+>>>>>>> c6d462397a13f23e9be5e794a094722060f38ec6
     private PDO $conexao;
 
     public function __construct()
@@ -16,7 +20,11 @@ class User
         $this->conexao = $database->conectar();
     }
 
+<<<<<<< HEAD
     public function cadastrar(string $email, string $senhaHash): void
+=======
+    public function cadastrar(string $email, string $senhaHash)
+>>>>>>> c6d462397a13f23e9be5e794a094722060f38ec6
     {
         $sql = 'INSERT INTO user (email, senha) VALUES (:email, :senha)';
         $stmt = $this->conexao->prepare($sql);
@@ -33,9 +41,15 @@ class User
         $stmt->execute();
 
         $usuario = $stmt->fetch();
+<<<<<<< HEAD
 
         return $usuario ?: null;
     }
 }
 
     
+=======
+        return $usuario ?: null;
+    }
+}
+>>>>>>> c6d462397a13f23e9be5e794a094722060f38ec6

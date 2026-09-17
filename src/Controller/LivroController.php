@@ -13,7 +13,7 @@ class LivroController
 
     public function criar(): void
     {
-       session_start();
+    //    session_start();
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $titulo = $_POST['nome'] ?? '';
@@ -28,4 +28,63 @@ class LivroController
         }
         require_once __DIR__ . '/../View/livros/criar.php';
     }
+    public function editar(): void
+    {
+    //session_start();
+
+    $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+    if ($id === false || $id === null || $id <= 0) {
+        header('Location: ' . (defined('BASE_URL') ? BASE_URL : '') . '/');
+        exit;
+    }
+
+    $livroModel = new Livro();
+
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $titulo = $_POST['nome'] ?? '';
+        $autor = $_POST['autor'] ?? '';
+        $anoPublicacao = $_POST['ano'] ?? '';
+
+        $livroModel->editar($id, $titulo, $autor, (int)$anoPublicacao);
+        $_SESSION['sucesso'] = 'Edição efetuada com sucesso';
+        header('Location: ' . (defined('BASE_URL') ? BASE_URL : '') . '/');
+        exit;
+        
+        }
+
+        $livro = $livroModel->buscarPorId($id);
+        if ($livro === null) {
+            header('Location: ' . (defined('BASE_URL') ? BASE_URL : '') . '/');
+            exit;
+        }
+
+        require_once __DIR__ . '/../View/livros/editar.php';
 }
+
+    public function excluir(): void
+    {
+        $id = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
+        if ($id === false || $id === null || $id <= 0) {
+            header('Location: ' . (defined('BASE_URL') ? BASE_URL : '') . '/');
+            exit;
+        }
+
+        $livroModel = new Livro();
+        $livro = $livroModel->buscarPorId($id);
+        if ($livro === null) {
+            header('Location: ' . (defined('BASE_URL') ? BASE_URL : '') . '/');
+            exit;
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $livroModel->excluir($id);
+            $_SESSION['sucesso'] = 'Exclusão efetuada com sucesso';
+            header('Location: ' . (defined('BASE_URL') ? BASE_URL : '') . '/');
+            exit;
+            }
+            require_once __DIR__ . '/../View/livros/excluir.php';
+
+    }
+    
+}
+
