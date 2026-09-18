@@ -1,31 +1,32 @@
-<?php
-if(isset($erro)):?>
-    <p style="color: red;"><?= htmlspecialchars($erro, ENT_QUOTES, 'UTF-8') ?></p>;
-    
-<?php endif; ?>
-
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
 </head>
 <body>
     <h1>Login</h1>
 
-    <form action="<?= (defined('BASE_URL') ? BASE_URL : '') ?>/user/login" method="post">
-        
+    <?php if (isset($erro)): ?>
+        <p style="color: red;"><?= htmlspecialchars($erro, ENT_QUOTES, 'UTF-8') ?></p>
+    <?php endif; ?>
+
+    <?php if (isset($_SESSION['sucesso'])): ?>
+        <p><?= htmlspecialchars($_SESSION['sucesso'], ENT_QUOTES, 'UTF-8') ?></p>
+        <?php unset($_SESSION['sucesso']); ?>
+    <?php endif; ?>
+
+    <form action="<?= defined('BASE_URL') ? BASE_URL : '' ?>/user/login" method="post">
         <label for="email">Email</label>
-        <input type="email" id="email" name="email" placeholder="Digite seu email" required>
+        <input type="email" name="email" id="email" placeholder="Digite seu email" required>
         <br><br>
         <label for="senha">Senha</label>
-        <input type="password" id="senha" name="senha" placeholder="Digite sua senha" required>
+        <input type="password" name="senha" id="senha" placeholder="Digite sua senha" required>
         <br><br>
-        <input type="submit" value="Entrar" nome="Entrar">
-        <input type="submit" value="Cadastrar" nome="Cadastrar">
-        
+        <button type="submit">Entrar</button>
     </form>
+    <br>
+    <a href="<?= defined('BASE_URL') ? BASE_URL : '' ?>/user/cadastrar">Cadastrar</a>
 </body>
 </html>
-
-
